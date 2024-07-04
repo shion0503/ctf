@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect</title>
+</head>
+<body>
+    <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    // 現在のURLを取得
+    const currentUrl = window.location.href;
+    
+    // URLからフラグメント部分を抜き出す
+    const fragmentIndex = currentUrl.indexOf('#');
+    if (fragmentIndex === -1) {
+        // フラグメントが存在しない場合は何もしない
+        return;
+    }
+
+    const baseUrl = currentUrl.substring(0, fragmentIndex);
+    const fragment = currentUrl.substring(fragmentIndex + 1);
+
+    // フラグメントをクエリパラメータに変換
+    const queryParams = new URLSearchParams(fragment).toString();
+
+    // Webhook URLを指定
+    const webhookUrl = 'https://your-webhook-url.com';
+    
+    // 新しいURLを作成
+    const newUrl = `${webhookUrl}?${queryParams}`;
+
+    // クローラーをリダイレクト
+    window.location.replace(newUrl);
+});
+</script>
+</body>
+</html>
+
